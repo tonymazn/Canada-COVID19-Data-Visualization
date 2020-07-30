@@ -7,6 +7,7 @@ var page1_interval;
 var page1_x;
 var page1_y;
 var page1_timeLabel;
+var page1_div;
 
 Page1 = function (_parentElement, _parameters) {
     this._parentElement = _parentElement;
@@ -110,6 +111,11 @@ Page1.prototype.initVis = function (_parentElement, _parameters) {
     page1_g.append("g")
         .attr("class", "y axis")
         .call(yAxisCall);
+
+
+    page1_div = d3.select(_parentElement).append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
 
 
     //legend
@@ -217,6 +223,21 @@ function update(data) {
             .attr("cy", function (d) { return page1_y(d.numdeaths + 1); })
             .attr("cx", function (d) { return page1_x(d.numconf + 100); })
             .attr("r", function (d) { return Math.sqrt(page1_area(d.numtested) / Math.PI); });
+
+        circles
+            .on("mouseover", function (d) {
+                page1_div.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                page1_div.html(d.prname + "<br/>")
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseout", function (d) {
+                page1_div.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
 
         // Update the time label
         page1_timeLabel.text(data[0].date);
