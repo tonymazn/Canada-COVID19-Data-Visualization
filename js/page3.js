@@ -1,6 +1,5 @@
 var page3_canadamap;
 var page3_data = [];
-var page3_province = [];
 
 Page3 = function (_parentElement, _parameters) {
     this._parentElement = _parentElement;
@@ -35,32 +34,17 @@ Page3.prototype.initVis = function (_parentElement, _parameters) {
         console.log("read data");
         console.log(data);
 
-        common_provincesList.forEach(function (d) {
-            page3_province.pop(0);
-        });
-        page3_province.pop(0);  //Canada
-
-        console.log("page3_province");
-        console.log(page3_province);
         data.forEach(function (d) {
             var item = [];
             item.numconf = +d.numconf;
             item.numdeaths = +d.numdeaths;
             item.numtested = +d.numtested;
             item.ratetotal = +d.ratetotal;
-            item.newcase = item.numconf - getPreviousNumconf(d.prname);
+            item.newcase = +d.numtoday;
             item.prname = d.prname;
             item.date = common_parseTime(d.date);
             item.team = d.prname;
             page3_data.push(item);
-
-            //console.log(item.prname + " item.newcase");
-            //console.log(getProvinceIndex(item.prname));
-            //console.log(item.numconf);
-            //console.log(getPreviousNumconf(d.prname));
-            //console.log(item.newcase);
-
-            setPreviousNumconf(d.prname, item.numconf);
         });
 
         page3Update(_parameters);
@@ -69,20 +53,6 @@ Page3.prototype.initVis = function (_parentElement, _parameters) {
 
 }
 
-function setPreviousNumconf(province, data) {
-    if (province == common_Canada) {
-        page3_province[common_provincesList.length + 1] = data;
-    } else {
-        page3_province[getProvinceIndex(province)] = data;
-    }
-}
-function getPreviousNumconf(province) {
-    var index = getProvinceIndex(province);
-    if (index == -1) {
-        return page3_province[common_provincesList.length + 1];
-    }
-    return page3_province[index];
-}
 
 Page3.prototype.trigger = function (_parameters) {
     _parameters.currentPage = 3;

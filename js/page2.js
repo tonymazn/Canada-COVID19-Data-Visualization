@@ -2,7 +2,6 @@ var page2_allCalls;
 var page2_calls;
 var page2_nestedCalls;
 var page2_timeline;
-var page2_province = [];
 
 Page2 = function (_parentElement, _parameters) {
     this._parentElement = _parentElement;
@@ -13,11 +12,6 @@ Page2 = function (_parentElement, _parameters) {
 
 Page2.prototype.initVis = function (_parentElement, _parameters) {
     d3.csv(common_datasource).then(function (data) {
-        common_provincesList.forEach(function (d) {
-            page2_province.pop(0);
-        });
-        page2_province.pop(0);  //Canada
-
         newdata = [];
         data.map(function (d) {
             var item = [];
@@ -28,9 +22,8 @@ Page2.prototype.initVis = function (_parentElement, _parameters) {
             item.prname = d.prname
             item.date = common_parseTime(d.date)
             item.team = d.prname
-            item.newcase = item.numconf - page2getPreviousNumconf(d.prname);
+            item.newcase = d.numtoday
             newdata.push(item);
-            page2setPreviousNumconf(d.prname, item.numconf);
 
             return d
         })
@@ -62,20 +55,6 @@ Page2.prototype.initVis = function (_parentElement, _parameters) {
     });
 }
 
-function page2setPreviousNumconf(province, data) {
-    if (province == common_Canada) {
-        page2_province[common_provincesList.length + 1] = data;
-    } else {
-        page2_province[getProvinceIndex(province)] = data;
-    }
-}
-function page2getPreviousNumconf(province) {
-    var index = getProvinceIndex(province);
-    if (index == -1) {
-        return page2_province[common_provincesList.length + 1];
-    }
-    return page2_province[index];
-}
 
 Page2.prototype.trigger = function (_parameters) {
     _parameters.currentPage = 2;
