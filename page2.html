@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p>This slide provides the options for users to choose the 'Type' and view the summary by stacked area chart, timeline(the bottom part of chart) is selectable by brushing the date area, the result will display on the stacked area chart, and it will pass the parameters (End date and Type) to other slides. </p>
+            <p>The stacked area chart x axis is date and y axis is the case.</p>
+        </div>
+    </div>
+</div>
+
+
+<form class="form-inline">
+    <div class="form-group">
+        <label>Date:</label>
+        <span id="dateLabel1">03-11-2020</span> to <span id="dateLabel2">07-17-2020</span>
+    </div>
+    <div class="form-group">
+        <label>Type:</label>
+        <select id="var-select" class="form-control">
+            <option selected value="numconf">Confirmed Case</option>
+            <option value="numdeaths">Deaths</option>
+            <option value="numtested">Tested</option>
+            <option value="ratetotal">Rate</option>
+        </select>
+    </div>
+</form>
+
+<div id="selections" class="row">
+    <h2 id="page2total">Total by end date:</h2><h2 id="page2totalnumber" ></h2>
+</div>
+
+<div class="row">
+    <div id="stacked-area"></div>
+    <div id="timeline"></div>
+</div>

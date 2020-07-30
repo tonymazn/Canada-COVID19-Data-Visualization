@@ -1,0 +1,103 @@
+#chart-area svg {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.navbar-brand {
+    height: 60px;
+    padding: 5px 0px;
+}
+
+
+body {
+    background-color: #F1F3F3
+}
+
+.axis {
+    font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #D4D8DA;
+    stroke-width: 2px;
+    shape-rendering: crispEdges;
+}
+
+.line {
+    fill: none;
+    stroke-width: 2px;
+}
+
+.overlay {
+    fill: none;
+    pointer-events: all;
+}
+
+.focus circle {
+    fill: #F1F3F3;
+    stroke: #777;
+    stroke-width: 3px;
+}
+
+.hover-line {
+    stroke: #777;
+    stroke-width: 2px;
+    stroke-dasharray: 3,3;
+}
+
+#selections .col-md-4 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.counties {
+    fill: none;
+}
+
+.states {
+    fill: none;
+    stroke: #fff;
+    stroke-linejoin: round;
+}
+
+.graticule {
+    fill: none;
+    stroke: #bbb;
+    stroke-width: .5px;
+    stroke-opacity: .5;
+}
+
+.ui-widget-header .ui-icon {
+    background-image: url(images/ui-icons_444444_256x240.png);
+}
+
+.form-inline {
+    margin-left:15px;
+}
+
+h2 {
+    color: #888888;
+}
+
+#page3total {
+    margin: 15px 0px 15px 30px;
+}
+
+#page3totalnumber {
+    margin:0px 0px 0px 30px;
+}
+
+#page2total {
+    margin-left:30px;
+}
+
+#page2totalnumber {
+    margin-left: 30px;
+}
+
+#pagination {
+    margin-left: 10px;
+}
