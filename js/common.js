@@ -2,6 +2,7 @@ var common_provincesList = ["British Columbia", "Alberta", "Saskatchewan", "Mani
 const common_Canada = "Canada";
 const common_parseTime = d3.timeParse("%d-%m-%Y");
 const common_formatTime = d3.timeFormat("%d-%m-%Y");
+const common_formatTime2 = d3.timeFormat("%d-%b-%Y");
 const common_formatnumber = d3.format(",");
 const common_datasource = "https://health-infobase.canada.ca/src/data/covidLive/covid19.csv";
 

@@ -37,6 +37,7 @@ $(document).ready(function () {
             type: "numconf"
         };
 
+        $("#subtitle").text("Canada COVID-19 situation start " + common_formatTime2(minDate) + " to " + common_formatTime2(maxDate));
 
         $(".page1").hide();
         $(".page2").hide();
