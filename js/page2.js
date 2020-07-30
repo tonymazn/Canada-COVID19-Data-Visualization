@@ -2,6 +2,7 @@ var page2_allCalls;
 var page2_calls;
 var page2_nestedCalls;
 var page2_timeline;
+var page2_province = [];
 
 Page2 = function (_parentElement, _parameters) {
     this._parentElement = _parentElement;
@@ -12,6 +13,11 @@ Page2 = function (_parentElement, _parameters) {
 
 Page2.prototype.initVis = function (_parentElement, _parameters) {
     d3.csv(common_datasource).then(function (data) {
+        common_provincesList.forEach(function (d) {
+            page2_province.pop(0);
+        });
+        page2_province.pop(0);  //Canada
+
         newdata = [];
         data.map(function (d) {
             var item = [];
@@ -22,7 +28,10 @@ Page2.prototype.initVis = function (_parentElement, _parameters) {
             item.prname = d.prname
             item.date = common_parseTime(d.date)
             item.team = d.prname
+            item.newcase = item.numconf - page2getPreviousNumconf(d.prname);
             newdata.push(item);
+            page2setPreviousNumconf(d.prname, item.numconf);
+
             return d
         })
 
@@ -39,6 +48,7 @@ Page2.prototype.initVis = function (_parentElement, _parameters) {
         numdeathsBar = new BarChart("#numdeaths", "numdeaths", "numdeaths")
         testedBar = new BarChart("#numtested", "numtested", "numtested")
         ratetotalBar = new BarChart("#ratetotal", "ratetotal", "ratetotal")
+        newcaseBar = new BarChart("#newcase", "newcase", "newcase")
         stackedArea = new StackedAreaChart("#stacked-area")
         page2_timeline = new Timeline("#timeline")
 
@@ -50,6 +60,21 @@ Page2.prototype.initVis = function (_parentElement, _parameters) {
     }).catch (function () {
         console.log("error loading file canadacovid19.csv, please press F5 and try again");
     });
+}
+
+function page2setPreviousNumconf(province, data) {
+    if (province == common_Canada) {
+        page2_province[common_provincesList.length + 1] = data;
+    } else {
+        page2_province[getProvinceIndex(province)] = data;
+    }
+}
+function page2getPreviousNumconf(province) {
+    var index = getProvinceIndex(province);
+    if (index == -1) {
+        return page2_province[common_provincesList.length + 1];
+    }
+    return page2_province[index];
 }
 
 Page2.prototype.trigger = function (_parameters) {
@@ -102,6 +127,8 @@ function changeDates(values) {
             total = totalrow.numdeaths;
         } else if (type == "ratetotal") {
             total = totalrow.ratetotal; 
+        } else if (type == "newcase") {
+            total = totalrow.newcase; 
         } else {
             total = totalrow.numtested;
         }
@@ -118,5 +145,6 @@ function changeDates(values) {
     testedBar.wrangleData();
     numconfBar.wrangleData();
     ratetotalBar.wrangleData();
+    newcaseBar.wrangleData();
     stackedArea.wrangleData();
 }
