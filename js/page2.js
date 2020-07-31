@@ -19,10 +19,10 @@ Page2.prototype.initVis = function (_parentElement, _parameters) {
             item.numdeaths = +d.numdeaths
             item.numtested = +d.numtested
             item.ratetotal = +d.ratetotal
+            item.newcase = +d.numtoday
             item.prname = d.prname
             item.date = common_parseTime(d.date)
             item.team = d.prname
-            item.newcase = d.numtoday
             newdata.push(item);
 
             return d
