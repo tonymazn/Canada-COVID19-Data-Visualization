@@ -82,7 +82,7 @@ CanadaMap.prototype.initVis = function () {
         .remove();
     //End of legend
 
-    d3.json("data/canadamap.json").then(function (data) {
+    d3.json("Data/canadamap.json").then(function (data) {
         canadamap_mapdata = data;
         //        console.log("canadamap_mapdata");
         //        console.log(canadamap_mapdata);
